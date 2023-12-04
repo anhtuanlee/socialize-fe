@@ -1,0 +1,32 @@
+$bg-color: rgba(46, 46, 46, 1);
+$bg-color2: rgba(#353535, 0.7);
+$border-color: rgba(212, 174, 117, 0.97);
+$effect-color: rgba(255, 255, 255, 0.05);
+
+$desktop-xl: 1536px;
+$desktop-lg: 1280px;
+$tablet: 768px;
+$mobile: 476px;
+$desktop-width: 1280px;
+$tablet-width: 768px;
+$mobile-width: 640px;
+
+/* SCREEN SIZES */
+$screen-xs: 480px;
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-ml: 1024px;
+$screen-xl: 1280px;
+$screen-xxl: 1440px;
+$screen-xxxl: 1600px;
+$screen-xxxxl: 1920px;
+
+/* THEME VARIABLE */
+$easeOutCubic: cubic-bezier(0.33, 1, 0.68, 1);
+$easeInOutCirc: cubic-bezier(0.45, 0, 0.55, 1);
+
+/* TYPE SIZES */
+$font_size: 16px;
+$font_size_rem: 10px;
+$spacing: 5vw;
