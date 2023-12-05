@@ -1,0 +1,29 @@
+.primary {
+	background-color: #00bd97;
+	padding: vh(16px) vh(20px);
+	color: #fff;
+	border-radius: 8px;
+}
+.icon {
+	border-radius: 100px;
+	padding: vh(15px);
+}
+.icon-border {
+	border-radius: 100px;
+	padding: vh(15px);
+	border: vh(2px) solid #4a4a4a;
+}
+.rounded {
+}
+.secondary {
+	white-space: nowrap;
+	display: flex;
+	padding: vh(16px) vh(20px);
+	align-items: center;
+	justify-content: flex-start;
+	gap: vh(10px);
+}
+.select {
+}
+.border {
+}
