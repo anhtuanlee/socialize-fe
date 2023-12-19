@@ -1,23 +1,33 @@
-import Link from "next/link";
-import classnames from "classnames/bind";
-import styles from "./Button.module.scss";
+import Link from 'next/link';
 
-const cx = classnames.bind(styles);
+import s from './Button.module.scss';
+import React from 'react';
+import { cn } from '@/utils';
 
-export default function Button({ href, onClick, type, title, Icon, classname, children }: TButton) {
-	let Comp: any = "button";
-	let props: TPropsDataButton = {};
-	if (href) {
-		Comp = Link;
-		props.href = href;
-	} else {
-		props.onClick = onClick;
-	}
-	return (
-		<Comp className={cx(type, classname)} {...props}>
-			{Icon && <Icon />}
-			{type !== "icon" && <p>{title}</p>}
-			{children}
-		</Comp>
-	);
-}
+const Button: React.FC<TButton & React.HTMLProps<HTMLButtonElement>> = ({
+  href,
+  onClick,
+  type,
+  title,
+  Icons,
+  classNames,
+  children,
+  typeButton,
+  isLoading,
+  ...props
+}) => {
+  let Comp: any = 'button';
+  return (
+    <Comp
+      className={cn(classNames, s[type])}
+      {...props}
+      type={typeButton}
+      {...props}
+      onClick={onClick}
+    >
+      {Icons && (isLoading ? <span className={cn(s.loading)}></span> : <Icons />)}
+      {type !== 'icon' && <p>{children}</p>}
+    </Comp>
+  );
+};
+export default Button;

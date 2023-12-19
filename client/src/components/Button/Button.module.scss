@@ -1,29 +1,80 @@
 .primary {
-	background-color: #00bd97;
-	padding: vh(16px) vh(20px);
-	color: #fff;
-	border-radius: 8px;
+  background-color: #150aa1;
+  padding: vh(8px) vh(10px);
+  color: #fff;
+  border-radius: 8px;
+  aspect-ratio: 4;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: vw(8px);
 }
 .icon {
-	border-radius: 100px;
-	padding: vh(15px);
+  border-radius: 100px;
+  padding: vh(15px);
+  background-color: $lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .icon-border {
-	border-radius: 100px;
-	padding: vh(15px);
-	border: vh(2px) solid #4a4a4a;
+  border-radius: 100px;
+  padding: vh(15px);
+  border: vh(2px) solid #4a4a4a;
 }
 .rounded {
 }
 .secondary {
-	white-space: nowrap;
-	display: flex;
-	padding: vh(16px) vh(20px);
-	align-items: center;
-	justify-content: flex-start;
-	gap: vh(10px);
+  white-space: nowrap;
+  display: flex;
+  padding: vh(16px) vh(20px);
+  align-items: center;
+  justify-content: flex-start;
+  gap: vh(10px);
 }
 .select {
 }
 .border {
+  padding: vh(10px) vw(17px);
+  font-size: rem(16px);
+  border: 2px solid #c1beec;
+  border-radius: vh(60px);
+  display: flex;
+  background: $lightgray;
+  flex-direction: row;
+  gap: vw(8px);
+  align-items: center;
+
+  &:hover {
+    background: $white;
+  }
+}
+.text {
+  padding: vh(10px) vw(17px);
+}
+
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  &::after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: vw(3px) solid $darkblack;
+    border-color: $darkblack transparent $darkblack transparent;
+    animation: loading 1.2s linear infinite;
+  }
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

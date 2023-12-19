@@ -1,7 +1,7 @@
 import React from "react";
 
-function Suggestion({ classname }: { classname: string }) {
-	return <aside className={`${classname} bg-white`}> </aside>;
+function Suggestion({ className }: { className: string }) {
+  return <aside className={`${className} bg-white`}> </aside>;
 }
 
 export default Suggestion;
