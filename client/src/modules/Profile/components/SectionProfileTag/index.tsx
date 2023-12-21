@@ -35,13 +35,13 @@ const SectionProfileTag: React.FC<TSectionProfileTag> = ({ isSelf }) => {
   }, []);
   return (
     <div className={cn('w-full')}>
-      <nav className="flex flex-row  overflow-x-scroll justify-between px-8">
+      <nav className="flex flex-row  overflow-x-scroll justify-between px-8  border-b-[1px] border-solid border-lightgray">
         {dataFilter.map((item) => {
           return (
             <Text
               className={cn(
                 params === item.path ? ' border-darkblack border-b-2 border-solid' : 'boder-none',
-                'py-4  cursor-pointer'
+                'py-6 h-full cursor-pointer'
               )}
               onClick={(): void => handleActionFilterData(item.path)}
               variant="body_md__s"

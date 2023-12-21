@@ -1,4 +1,5 @@
 import { userService } from '@/api';
+import { followerService } from '@/api/followService';
 import { friendService } from '@/api/friendService';
 import Button from '@/components/Button';
 import {
@@ -6,25 +7,44 @@ import {
   IconAddFriend,
   IconDeleteFriend,
   IconEditProfile,
+  IconFollow,
+  IconFriend,
   IconRejectFriend,
+  IconRejectFriendMain,
   IconShare,
+  IconUnfollow,
 } from '@/components/IconSvg';
-import React, { useEffect, useState } from 'react';
+import { auth } from '@/types/data';
+import { cn } from '@/utils';
+import React, { useState } from 'react';
 import useSWR from 'swr';
 
 type TRenderButton = {
   reiceiver: string;
   self: string;
   icon?: boolean;
-  type?: string;
+  type?: TButtonType;
+  classNames?: string;
+  isShow?: boolean;
 };
 
-const RenderButton: React.FC<TRenderButton> = ({ reiceiver, self, icon = false }) => {
+const RenderButton: React.FC<TRenderButton> = ({
+  reiceiver,
+  self,
+  icon = false,
+  classNames,
+  isShow,
+}) => {
   const keyUser = userService.getKeyUser(reiceiver);
-  const { data, mutate, isValidating } = useSWR(keyUser, userService.getUserInfo, {
-    revalidateOnReconnect: true,
+
+  const [isOpenList, setIsOpenList] = useState<boolean>(false);
+  const { data, mutate, isValidating } = useSWR<auth.TDataUser>(keyUser, userService.getUserInfo, {
+    revalidateOnReconnect: false,
     revalidateOnMount: true,
+    revalidateOnFocus: true,
+    revalidateIfStale: false,
   });
+
   const handleSendRequest = async () => {
     friendService.setSelfAndUser(self, reiceiver); // set self and reiceiver
 
@@ -49,61 +69,130 @@ const RenderButton: React.FC<TRenderButton> = ({ reiceiver, self, icon = false }
     await friendService.deleteFriend(friendService.DELELE);
     mutate(data);
   };
+  const handleFollowUser = async () => {
+    followerService.setUserAndReiceiver(self, reiceiver);
+    await followerService.followUser(followerService.KEY_FOLLOW);
+    mutate(data);
+  };
+  const handleUnFollowUser = async () => {
+    followerService.setUserAndReiceiver(self, reiceiver);
+    await followerService.followUser(followerService.KEY_UNFOllOW);
+    mutate(data);
+  };
   const handleLog = async () => {
     console.log('test');
   };
   const renderButton = (
     title: string,
-    onClick: () => Promise<void>,
+    onClick: () => Promise<void> | void,
     key: number,
     Icon: () => JSX.Element,
-    type?: string
+    type?: TButtonType
   ) => (
     <Button
       isLoading={isValidating}
       key={key}
-      type={icon ? 'icon' : type ? 'primary' : 'border'}
-      classNames={type && '!bg-[#150AA1]'}
+      type={icon ? 'icon' : type ? type : 'border'}
+      classNames={type === 'primary' ? '!bg-[#150AA1]' : ''}
       onClick={onClick}
       Icons={Icon}
     >
       {title}
     </Button>
   );
-
+  const handelOpenList = () => {
+    setIsOpenList(true);
+  };
   const renderButtons = (
     titles: string[],
     handlers: (() => Promise<void>)[],
     Icon: (() => JSX.Element)[],
-    type?: string[]
-  ) => (
-    <div className="flex flex-row gap-8">
-      {titles.map((title, index) =>
-        renderButton(title, handlers[index], index, Icon[index], type && type[index])
-      )}
-    </div>
-  );
+    type?: TButtonType[],
+    relation?: string
+  ) => {
+    return relation === 'self' ? (
+      <div className={cn('flex flex-row gap-8', classNames)}>
+        {titles.map((title, index) =>
+          renderButton(title, handlers[index], index, Icon[index], type && type[index])
+        )}
+      </div>
+    ) : relation === 'friend' ? (
+      <div className="relative">
+        {renderButton('Bạn bè', handelOpenList, 0, IconFriend, 'primary')}
+        <div
+          onMouseLeave={() => setIsOpenList(false)}
+          className={cn(
+            'flex gap-8  absolute top-10 left-0 z-20 p-4 bg-white rounded-lg shadow-2xl',
+            isOpenList ? 'flex' : 'hidden',
+            icon ? 'flex-row top-0' : ' flex-col '
+          )}
+        >
+          {titles.map((title, index) =>
+            renderButton(title, handlers[index], index, Icon[index], type && type[index])
+          )}
+        </div>
+      </div>
+    ) : isShow ? (
+      <div className={cn('flex flex-row gap-8', classNames)}>
+        {titles.map((title, index) =>
+          renderButton(title, handlers[index], index, undefined!, 'secondary')
+        )}
+      </div>
+    ) : (
+      <div className="relative">
+        {renderButton('Phản hồi', handelOpenList, 0, IconAddFriend, 'primary')}
+        <div
+          onMouseLeave={() => setIsOpenList(false)}
+          className={cn(
+            'flex gap-8  absolute top-10 left-0 z-20 p-4 bg-white rounded-lg shadow-2xl',
+            isOpenList ? 'flex' : 'hidden',
+            icon ? 'flex-row top-0' : ' flex-col '
+          )}
+        >
+          {titles.map((title, index) =>
+            renderButton(title, handlers[index], index, Icon[index], type && type[index])
+          )}
+        </div>
+      </div>
+    );
+  };
 
-  const handleAction = (relation: TStatusFriend) => {
+  const handleAction = (status?: TStatusUser) => {
+    const relation = status?.relation;
+
     switch (relation) {
       case 'pending':
-        return renderButton('Hủy kết bạn', handleRejectRequest, 0, IconRejectFriend);
+        return renderButton(
+          'Hủy kết bạn',
+          handleRejectRequest,
+          0,
+          IconRejectFriendMain,
+          'secondary'
+        );
       case 'friend':
-        return renderButton('Xóa Bạn', handleRemoveFriend, 0, IconDeleteFriend);
+        return renderButtons(
+          ['Xóa Bạn', status?.follow ? 'Unfollow' : 'Follow'],
+          [handleRemoveFriend, status?.follow ? handleUnFollowUser : handleFollowUser],
+          [IconDeleteFriend, status?.follow ? IconUnfollow : IconFollow],
+          ['text', 'text'],
+          relation
+        );
       case 'reject':
         return renderButtons(
           ['Chấp nhận lời mời', 'Xóa lời mời'],
           [handleAcceptRequest, handleRejectRequest],
           [IconAcceptFriend, IconRejectFriend],
-          ['primary']
+          ['text', 'text']
         );
       case 'stranger':
-        return renderButton('Thêm bạn bè', handleSendRequest, 0, IconAddFriend);
+        return renderButton('Thêm bạn bè', handleSendRequest, 0, IconAddFriend, 'primary');
       case 'self':
         return renderButtons(
           ['Edit Profile', 'Share'],
           [handleLog, handleLog],
-          [IconEditProfile, IconShare]
+          [IconEditProfile, IconShare],
+          undefined,
+          relation
         );
       default:
         return null;

@@ -27,7 +27,7 @@
       "@Hooks/*": ["./src/hooks/*"],
       "@Styles/*": ["./src/styles/*"],
       "@Constants/*": ["./src/constants/*"],
-      "@Images/*": ["./public/images/*"],
+      "@Images/*": ["./public/assets/images/*"],
       "@Public/*": ["./public/*"],
       "@Utils/*": ["./src/utils/*"],
       "@Icons/*": ["./src/component/IconSvg/*"],

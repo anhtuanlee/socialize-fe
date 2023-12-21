@@ -1,17 +1,10 @@
+import { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 
 declare global {
   type TButton = {
     onClick?: () => void;
-    type:
-    | 'rounded'
-    | 'text'
-    | 'primary'
-    | 'secondary'
-    | 'select'
-    | 'border'
-    | 'icon'
-    | 'icon-border';
+    type: TButtonType;
     href?: string;
     classNames?: string;
     title?: string;
@@ -50,6 +43,19 @@ declare global {
   };
   type TFilterProfile = 'posts' | 'friends' | 'followers' | 'following' | 'album';
   type TStatusFriend = 'self' | 'friend' | 'stranger' | 'reject' | 'pending';
+  type TButtonType =
+    | 'rounded'
+    | 'text'
+    | 'primary'
+    | 'secondary'
+    | 'select'
+    | 'border'
+    | 'icon'
+    | 'icon-border';
+  type TStatusUser = {
+    relation: TStatusFriend;
+    follow: boolean;
+  };
 }
 
 declare namespace auth {
@@ -64,12 +70,17 @@ declare namespace auth {
     user_name: string;
     avatar: string;
     image: string;
-    status?: TStatusFriend;
+    status?: TStatusUser;
+  };
+  type TUserFriend = TDataUser & {
+    common_friend: {
+      friend_name: string;
+    }[];
   };
   type TAuthLogin = {
     isLogin: boolean;
     setIsLogin: (is: boolean) => void;
-    info: TDataUser | null;
+    info: TDataUser | undefined;
     setInfo: (data: TDataUser) => void;
   };
   type TToken = {
@@ -91,5 +102,12 @@ declare namespace post {
     user_name: string;
     avatar: string;
     image: string;
+  };
+}
+
+declare namespace story {
+  type TItemStory = {
+    image: string | StaticImageData;
+    alt: string;
   };
 }

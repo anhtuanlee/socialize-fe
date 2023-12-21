@@ -1,5 +1,5 @@
-import Button from "@/components/Button";
-import { SearchIcon } from "@/components/IconSvg";
+import Button from '@/components/Button';
+import { SearchIcon } from '@/components/IconSvg';
 
 export default function Search() {
   return (
@@ -11,8 +11,8 @@ export default function Search() {
         />
         <Button
           type="icon"
-          Icon={SearchIcon}
-          classname="bg-primary absolute right-[1%] top-1/2 -translate-y-1/2"
+          Icons={SearchIcon}
+          classNames="bg-primary absolute right-[1%] top-1/2 -translate-y-1/2"
         />
       </div>
     </form>

@@ -30,10 +30,9 @@ const ListData = <T extends auth.TDataUser[] | post.TPost[]>({ data, type }: TLi
   };
 
   const Item = ItemData(type);
-
   return (
     <div className={cn('flex flex-col gap-8 p-10')}>
-      {Array.isArray(data) && Item ? data.map((item) => <Item key={item.id} data={item} />) : null}
+      {Array.isArray(data) && Item ? data.map((item) => <Item key={item?.id} data={item} />) : null}
     </div>
   );
 };

@@ -76,7 +76,7 @@ export default function Form({ type }: TForm) {
           </p>
         </>
       )}
-      <Button typeButton="submit" classname="text-2xl" type="primary">
+      <Button typeButton="submit" className="text-2xl" type="primary">
         {type === 'login' ? 'Login' : 'Sign Up'}
       </Button>
     </form>

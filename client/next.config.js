@@ -20,6 +20,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images3.alphacoders.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'wallpapers.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'thicc-af.mywaifulist.moe',
+      },
     ],
   },
   experimental: {

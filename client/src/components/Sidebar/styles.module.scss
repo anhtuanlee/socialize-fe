@@ -1,12 +1,12 @@
 .user {
-  gap: vw(12px);
+  gap: vw(8px);
   margin-top: vw(20px);
   &__avatar {
     background: #fff;
     padding: 2px;
     position: relative;
-    width: vw(81px);
-    height: vw(81px);
+    width: vw(40px);
+    height: vw(40px);
     overflow: hidden;
     border-radius: 100px;
     img {

@@ -1,7 +1,13 @@
 'use client';
 import { userService } from '@/api';
 import Button from '@/components/Button';
-import { IconArrowLeft, IconEditProfile, IconShare } from '@/components/IconSvg';
+import {
+  IconArrowLeft,
+  IconEditProfile,
+  IconMessage,
+  IconMore,
+  IconShare,
+} from '@/components/IconSvg';
 import PostForm from '@/components/PostForm';
 import SectionProfileTag from './components/SectionProfileTag';
 import Text from '@/components/Text';
@@ -13,78 +19,55 @@ import { useParams, useRouter } from 'next/navigation';
 import React from 'react';
 import useSWR from 'swr';
 import RenderButton from './components/RelationButton/RenderButton';
+import HeaderProfile from './components/HeaderProfile';
 
 const ProfileModule: React.FC = () => {
   const { user } = useParams();
   const { info } = useStore();
+  const { push } = useRouter();
+
+  /* Get keyuser */
   const keyUser = userService.getKeyUser(user as string);
-  const { data } = useSWR(keyUser, userService.getUserInfo);
+  const { data, error } = useSWR<auth.TDataUser>(keyUser, userService.getUserInfo, {
+    refreshWhenHidden: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+  });
 
   const isSelf = info?.user_name === user;
-  const dataRender: auth.TDataUser = isSelf ? info : data;
+  const dataRender = isSelf ? info : data;
+  const relationWithUser = data?.status as TStatusUser;
 
-  const relationWithUser = data?.status as TStatusFriend;
-
-  // if (error) {
-  //   push('/login');
-  // }
+  if (error) {
+    push('/login');
+  }
 
   return (
-    <div className="flex flex-col">
-      <div className={cn('w-full h-64 bg-transparent relative')}>
-        <figure className={cn('absolute w-full h-[180px]  ')}>
-          <Image
-            className={cn('absolute')}
-            src={
-              // !dataRender ? 'https://images3.alphacoders.com/132/1326290.jpeg' : dataRender.cover
-              'https://images3.alphacoders.com/132/1326290.jpeg'
-            }
-            alt={dataRender?.full_name ?? 'unknow'}
-            fill
+    <>
+      <HeaderProfile
+        data={dataRender!}
+        relation={relationWithUser}
+        reiceiver={user as string}
+        self={info!}
+      />
+      {/* Handle Render action Accept Friend Self */}
+      {relationWithUser?.relation === 'reject' && (
+        <div className="my-24 bg-lightgray px-4 py-6 rounded-2xl  flex flex-row items-center justify-between  mx-8">
+          <Text variant="body_md__s" color="darkblue">
+            {data!.last_name} đã gửi cho bạn lời mời kết bạn
+          </Text>
+          <RenderButton
+            self={info?.user_name as string}
+            reiceiver={user as string}
+            classNames="flex flex-row"
+            isShow={true}
           />
-
-          <div className={cn('flex flex-row gap-10 absolute -bottom-10 right-4')}>
-            <RenderButton reiceiver={user as string} self={info?.user_name as string} />
-          </div>
-
-          <div className={cn('flex flex-row gap-8 absolute -bottom-10 left-4')}>
-            <figure className={cn('w-16 h-16 rounded-full relative overflow-auto')}>
-              <Image
-                src={
-                  dataRender
-                    ? dataRender.avatar
-                    : 'https://images3.alphacoders.com/132/1326290.jpeg'
-                }
-                alt={dataRender?.full_name}
-                fill
-                className={cn('absolute')}
-              />
-            </figure>
-            <div className="flex flex-col items-center gap-4">
-              <Text variant="body_lg__b" color="darkblue">
-                {dataRender?.full_name}
-              </Text>
-              <Text variant="body_md__r" color="coldgray">
-                {`@${dataRender?.user_name}`}
-              </Text>
-            </div>
-          </div>
-        </figure>
-        <div className={cn('flex flex-row gap-4 px-4 py-6 relative')}>
-          <IconArrowLeft />
-          <div className={cn('flex flex-col items-start gap-4')}>
-            <Text variant="body_lg__b" color="darkblue" tag="h4">
-              {dataRender?.full_name}
-            </Text>
-            <Text variant="body_md__r" color="lightgray">
-              33Post
-            </Text>
-          </div>
         </div>
-      </div>
-      <PostForm classNames={cn('mt-24 ')} data={dataRender} />
+      )}
+
+      <PostForm classNames={cn('mt-32 mb-12')} data={info!} />
       <SectionProfileTag isSelf={isSelf} />
-    </div>
+    </>
   );
 };
 

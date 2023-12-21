@@ -43,9 +43,9 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div>
       <Header />
       <div className={cn('w-full  mt-32  grid h-[90vh] grid-cols-13')}>
-        <Sidebar className="fixed top-32 bottom-0 w-[21.8%]" />
-        <Wrapper className={'bg-white  col-end-10 col-start-4'}>{children}</Wrapper>
-        <Suggestion className="col-span-4 bg-slate-600" />
+        <Sidebar className="fixed top-32 bottom-0 w-[21.8%] rounded-lg border-r-[1px] border-solid border-colgray" />
+        <Wrapper className={'bg-white  col-end-10 col-start-4 rounded-2xl'}>{children}</Wrapper>
+        <Suggestion className="col-span-4 bg-slate-600 rounded-lg border-l-[1px] border-solid border-colgray" />
       </div>
     </div>
   );

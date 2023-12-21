@@ -22,7 +22,7 @@ export default function Header() {
           <LogoIcon />
         </Link>
         <Search />
-        <Button Icon={BellIcon} type="icon-border" classname="relative">
+        <Button Icons={BellIcon} type="icon-border" classNames="relative">
           <span className="bg-primary flex items-center justify-center w-7 h-7 text-center text-white rounded-full absolute top-0 -right-2">
             {numNotifycation > 9 ? `9+` : numNotifycation}
           </span>

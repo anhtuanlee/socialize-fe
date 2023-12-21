@@ -1,21 +1,66 @@
+.btn {
+  svg {
+    width: vh(20px);
+    height: vh(20px);
+  }
+}
+
 .primary {
   background-color: #150aa1;
-  padding: vh(8px) vh(10px);
+  padding: vh(10px) vh(16px);
   color: #fff;
-  border-radius: 8px;
-  aspect-ratio: 4;
+  border-radius: vw(8px);
+  display: flex;
+  height: vw(40px);
+  flex-direction: row;
+  align-items: center;
+  gap: vw(8px);
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  .loading {
+    &::after {
+      border: vw(3px) solid $white;
+      border-color: $white transparent $white transparent;
+    }
+  }
+}
+.secondary {
+  background-color: #fff;
+  padding: vh(10px) vh(16px);
+  color: #150aa1;
+  border-radius: vw(8px);
+  height: vw(40px);
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: vw(8px);
+  flex-shrink: 0;
+  white-space: nowrap;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  .loading {
+    &::after {
+      border: vw(3px) solid $darkblue;
+      border-color: $darkblue transparent $darkblue transparent;
+    }
+  }
 }
 .icon {
   border-radius: 100px;
-  padding: vh(15px);
+  padding: vw(12px);
   background-color: $lightgray;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: rgba(124, 119, 119, 0.61) 0px 7px 29px 0px;
+
+  .loading {
+    &::after {
+      border: vw(3px) solid $darkblack;
+      border-color: $darkblack transparent $darkblack transparent;
+    }
+  }
 }
 .icon-border {
   border-radius: 100px;
@@ -24,33 +69,54 @@
 }
 .rounded {
 }
-.secondary {
-  white-space: nowrap;
-  display: flex;
-  padding: vh(16px) vh(20px);
-  align-items: center;
-  justify-content: flex-start;
-  gap: vh(10px);
-}
+
 .select {
 }
 .border {
-  padding: vh(10px) vw(17px);
-  font-size: rem(16px);
-  border: 2px solid #c1beec;
-  border-radius: vh(60px);
+  padding: vh(8px) vw(16px);
+  font-size: rem(14px);
+  border: 1px solid #c1beec;
+  color: $darkblue;
+  border-radius: vh(30px);
   display: flex;
   background: $lightgray;
   flex-direction: row;
   gap: vw(8px);
   align-items: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
+  .loading {
+    &::after {
+      border: vw(3px) solid $darkblue;
+      border-color: $darkblue transparent $darkblue transparent;
+    }
+  }
   &:hover {
     background: $white;
   }
 }
 .text {
   padding: vh(10px) vw(17px);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: vh(12px);
+  gap: vh(20px);
+
+  &:hover {
+    background-color: $lightgray;
+
+    svg path {
+      stroke: $darkblack;
+    }
+  }
+  .loading {
+    &::after {
+      border: vw(3px) solid $darkblack;
+      border-color: $darkblack transparent $darkblack transparent;
+    }
+  }
 }
 
 .loading {
@@ -65,8 +131,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: vw(3px) solid $darkblack;
-    border-color: $darkblack transparent $darkblack transparent;
+    border: vw(3px) solid $white;
     animation: loading 1.2s linear infinite;
   }
 }

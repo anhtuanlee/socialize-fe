@@ -29,7 +29,10 @@ type TextVariant =
   | 'body_md__b'
   | 'body_sm__r'
   | 'body_sm__s'
-  | 'body_sm__b';
+  | 'body_sm__b'
+  | 'body_s__r'
+  | 'body_s__s'
+  | 'body_s__b';
 
 type TextProps = React.HTMLProps<HTMLElement> & {
   variant?: TextVariant;

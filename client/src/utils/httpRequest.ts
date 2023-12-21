@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { storageService } from '@/helper';
 
 export const request = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: process.env.NEXT_PUBLIC_API as string,
   // withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

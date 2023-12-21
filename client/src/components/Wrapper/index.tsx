@@ -1,12 +1,9 @@
 'use client';
 import { wrapGrid } from 'animate-css-grid';
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 import useWindowResize from '@/hooks/useWindowResize';
 
-import Container from '../Container';
-import Sidebar from '../Sidebar';
-import Suggestion from '../Suggestion';
 import { cn } from '@/utils';
 
 function Wrapper({ children, className }: { children: ReactNode; className: string }) {

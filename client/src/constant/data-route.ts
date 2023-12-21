@@ -18,17 +18,17 @@ export const DATA_ROUTE = [
     icon: HomeSidebarIcon,
   },
   {
-    href: '/',
+    href: '/Notifycation',
     title: 'Notifycation',
     icon: BellSidebarIcon,
   },
   {
-    href: '/',
+    href: '/Notifycation',
     title: 'Message',
     icon: MessageSidebarIcon,
   },
   {
-    href: '/',
+    href: '/Notifycation',
     title: 'Bookmark',
     icon: BookmarkSidebarIcon,
   },
@@ -38,7 +38,7 @@ export const DATA_ROUTE = [
     icon: ProfileSidebarIcon,
   },
   {
-    href: '/',
+    href: '/Notifycation',
     title: 'More',
     icon: MoreSidebarIcon,
   },

@@ -25,30 +25,35 @@ export default function Sidebar({ className }: { className: string }) {
   return (
     <aside
       className={cn(
-        'h-[calc(100vh-8  rem)] bg-lightsky text-black  overflow-hidden flex justify-between flex-col',
+        'h-[calc(100vh-8rem)] bg-white text-black items-end overflow-hidden flex  flex-col',
         className,
         s.sidebar
       )}
     >
-      <div className="gap-8 flex flex-col">
-        <Link
-          href={`${ROUTE.PROFILE}/${info?.user_name}`}
-          className={cn('flex flex-col items-center justify-center', s.user)}
-        >
-          <figure className={cn(s.user__avatar)}>
-            <Image src={info?.avatar || ''} alt="gai xinh" fill />
-          </figure>
-          <Text className={cn(s.user__name)} color="white" variant="body_lg__r">
-            {info?.full_name}
-          </Text>
-        </Link>
-        <div className="  w-auto  bg-primary   top-28 bottom-0">
-          {DATA_ROUTE.map((item, index) => {
-            return <SidebarItem key={index} data={item} />;
-          })}
+      <div className="gap-8 flex flex-col  justify-between w-2/3 h-full">
+        <div className={cn('flex flex-col justify-start gap-10')}>
+          <Link
+            href={`${ROUTE.PROFILE}/${info?.user_name}`}
+            className={cn('flex flex-row items-center justify-start px-8', s.user)}
+          >
+            <figure className={cn(s.user__avatar)}>
+              <Image src={info?.avatar || ''} alt="gai xinh" fill />
+            </figure>
+          </Link>
+          <div className="w-auto flex flex-col gap-10 bg-primary top-28 bottom-0">
+            {DATA_ROUTE.map((item, index) => {
+              return <SidebarItem key={index} data={item} />;
+            })}
+          </div>
         </div>
+        {/* <Button
+          type="primary"
+          onClick={handleLogout}
+          classNames=" bg-lightgreen w-full   px-4 py-6"
+        >
+          LOGOUT
+        </Button> */}
       </div>
-      <Button onClick={handleLogout} title="LOGOUT" classname=" bg-lightgreen w-full   px-4 py-6" />
     </aside>
   );
 }

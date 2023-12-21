@@ -8,7 +8,7 @@ export const createAuthSlice: StateCreator<
     auth.TAuthLogin & auth.TToken
 > = (set) => ({
     isLogin: false,
-    info: null,
+    info: undefined,
     accessToken: '',
 
     setIsLogin: (is: boolean) => set(() => ({ isLogin: is })),

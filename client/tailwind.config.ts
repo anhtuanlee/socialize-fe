@@ -25,7 +25,7 @@ const config: Config = {
         darkblack: '#06090c',
         white: '#fff',
         colgray: '#e4e4e4',
-        lightgray: ' #f1f1f1',
+        lightgray: ' #f2f2f2',
         darkgray: '#494949',
         ashgray: '#b8b8b8',
         red: '#d93f21',
@@ -59,6 +59,7 @@ const config: Config = {
       },
       aspectRatio: {
         '5/1': '5 / 1',
+        '2/75': '2.75',
       },
     },
   },
