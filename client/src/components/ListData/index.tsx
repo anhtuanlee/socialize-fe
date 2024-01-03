@@ -22,8 +22,7 @@ const ListData = <T extends auth.TDataUser[] | post.TPost[]>({ data, type }: TLi
         console.log('Havent Data');
         break;
       case 'posts':
-        console.log('Havent Data');
-        break;
+        return PostItem;
       default:
         return UserItem;
     }

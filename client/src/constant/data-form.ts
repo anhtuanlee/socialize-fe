@@ -1,6 +1,9 @@
+import { IconFriend, IconLock, IconPublic } from '@/components/IconSvg';
+
 export const DATA_FORM_SIGNIN = [
   [
     {
+      id: 1,
       required: true,
       name: 'firstname',
       placeholder: 'First Name',
@@ -10,6 +13,7 @@ export const DATA_FORM_SIGNIN = [
       pattern: '^.{3,10}$',
     },
     {
+      id: 2,
       required: true,
       name: 'lastname',
       placeholder: 'Last Name',
@@ -20,6 +24,7 @@ export const DATA_FORM_SIGNIN = [
     },
   ],
   {
+    id: 3,
     required: true,
     name: 'email',
     placeholder: 'Email',
@@ -29,6 +34,7 @@ export const DATA_FORM_SIGNIN = [
     pattern: '^[w-.]+@([w-]+.)+[w-]{2,4}$',
   },
   {
+    id: 4,
     required: true,
     name: 'password',
     placeholder: 'Password',
@@ -39,6 +45,7 @@ export const DATA_FORM_SIGNIN = [
   },
   [
     {
+      id: 5,
       required: true,
       name: 'phone',
       placeholder: 'Phone',
@@ -58,6 +65,7 @@ export const DATA_FORM_SIGNIN = [
 ];
 export const DATA_FORM_LOGIN = [
   {
+    id: 1,
     name: 'mailphone',
     placeholder: 'Email or Phone',
     typeInput: 'input',
@@ -65,10 +73,32 @@ export const DATA_FORM_LOGIN = [
     messageError: 'Type correct your phone or email',
   },
   {
+    id: 2,
     name: 'password',
     placeholder: 'Password',
     typeInput: 'input',
     type: 'password',
     messageError: 'Password should have 8 text',
+  },
+];
+
+export const DATA_MODE_POST = [
+  {
+    id: 0,
+    title: 'Công khai',
+    name: 'PUBLIC',
+    icon: IconPublic,
+  },
+  {
+    id: 1,
+    title: 'Bạn bè',
+    name: 'FRIEND',
+    icon: IconFriend,
+  },
+  {
+    id: 2,
+    title: 'Chỉ mình tôi',
+    name: 'PRIVATE',
+    icon: IconLock,
   },
 ];

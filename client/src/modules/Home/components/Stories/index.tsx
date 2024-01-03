@@ -2,7 +2,7 @@
 
 import { DATA_STORIES } from '@/constant/data-stories';
 import React from 'react';
-import ItemStory from '../ItemStory';
+import ItemStory from './ItemStory';
 import { useStore } from '@/stores/stores';
 
 const Stories: React.FC = () => {

@@ -14,11 +14,17 @@ const Button: React.FC<TButton & React.HTMLProps<HTMLButtonElement>> = ({
   children,
   typeButton,
   isLoading,
+  disabled,
   ...props
 }) => {
   let Comp: any = 'button';
   return (
-    <Comp className={cn(classNames, s[type], s.btn)} type={typeButton} {...props} onClick={onClick}>
+    <Comp
+      className={cn(classNames, s[type], s.btn, disabled && s.disabled)}
+      type={typeButton}
+      {...props}
+      onClick={onClick}
+    >
       {Icons && (isLoading ? <span className={cn(s.loading)}></span> : <Icons />)}
       {type !== 'icon' && children}
     </Comp>

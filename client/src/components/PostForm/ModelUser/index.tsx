@@ -1,29 +1,27 @@
+import FormCustomSelect from '@/components/FormSelectCustom';
+import ImageCustom from '@/components/ImageCustom';
 import Text from '@/components/Text';
-import { auth } from '@/types/data';
+import { DATA_MODE_POST } from '@/constant/data-form';
+import { auth, post } from '@/types/data';
 import { cn } from '@/utils';
-import Image from 'next/image';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
-const ModelUser: React.FC<{ data: auth.TDataUser; classNames: string }> = ({
-  data,
-  classNames,
-}) => {
+type TModelUser = {
+  data: auth.TDataUser;
+  classNames: string;
+};
+
+const ModelUser: React.FC<TModelUser> = ({ data, classNames }) => {
   return (
     <div className={cn('flex flex-row gap-4 pl-4 pt-6', classNames)}>
       <figure className={cn('w-14 h-14 rounded-full overflow-hidden relative')}>
-        <Image fill alt={data.full_name ?? ''} src={data.avatar ?? ''} />
+        <ImageCustom alt={data?.full_name} src={data?.avatar} type="avatar" />
       </figure>
-      <div className={cn('flex flex-col items-start justify-between')}>
+      <div className={cn('flex flex-col items-start justify-between relative')}>
         <Text variant="body_sm__b" color="darkblue">
-          {data.full_name}
+          {data?.full_name}
         </Text>
-        <Text
-          className="bg-lightgray rounded-lg px-8 flex items-center justify-center py-1"
-          tag="span"
-          variant="body_s__b"
-        >
-          Bạn bè
-        </Text>
+        <FormCustomSelect data={DATA_MODE_POST} />
       </div>
     </div>
   );

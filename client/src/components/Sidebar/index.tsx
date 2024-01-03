@@ -2,17 +2,14 @@
 
 import { DATA_ROUTE, ROUTE } from '@/constant/data-route';
 
-import Button from '../Button';
-import SidebarItem from './SidebarItem';
-import { cn } from '@/utils';
-import Image from 'next/image';
-import s from './styles.module.scss';
-import Text from '../Text';
-import { useEffect } from 'react';
 import { authenSevice } from '@/api/authService';
 import { useStore } from '@/stores/stores';
-import { useRouter } from 'next/navigation';
+import { cn } from '@/utils';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import ImageCustom from '../ImageCustom';
+import SidebarItem from './SidebarItem';
+import s from './styles.module.scss';
 
 export default function Sidebar({ className }: { className: string }) {
   const { info } = useStore();
@@ -37,7 +34,7 @@ export default function Sidebar({ className }: { className: string }) {
             className={cn('flex flex-row items-center justify-start px-8', s.user)}
           >
             <figure className={cn(s.user__avatar)}>
-              <Image src={info?.avatar || ''} alt="gai xinh" fill />
+              <ImageCustom src={info?.avatar} alt="gai xinh" type="avatar" />
             </figure>
           </Link>
           <div className="w-auto flex flex-col gap-10 bg-primary top-28 bottom-0">

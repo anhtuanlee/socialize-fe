@@ -14,7 +14,6 @@ import Text from '@/components/Text';
 import { useStore } from '@/stores/stores';
 import { auth } from '@/types/data';
 import { cn } from '@/utils';
-import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import React from 'react';
 import useSWR from 'swr';
@@ -37,10 +36,6 @@ const ProfileModule: React.FC = () => {
   const isSelf = info?.user_name === user;
   const dataRender = isSelf ? info : data;
   const relationWithUser = data?.status as TStatusUser;
-
-  if (error) {
-    push('/login');
-  }
 
   return (
     <>

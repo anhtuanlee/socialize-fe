@@ -8,7 +8,6 @@ import { useStore } from '@/stores/stores';
 
 export default function Signin() {
   const { accessToken, info } = useStore();
-  console.log(accessToken, info);
 
   return (
     <div className="flex flex-col items-center">
@@ -18,9 +17,9 @@ export default function Signin() {
           <Text variant="h4">Socialize</Text>
         </div>
         <div className="flex flex-row items-center gap-4">
-          <Text variant="body_md">have an account?</Text>
+          <Text variant="body_md__r">have an account?</Text>
           <Link href={'/login'}>
-            <Text variant="body_md_bold" className="text-darkgreen">
+            <Text variant="body_md__r" className="text-darkgreen">
               Log in!
             </Text>
           </Link>
@@ -31,7 +30,7 @@ export default function Signin() {
           <Text variant="h2" className="font-semibold">
             Wellcome Back
           </Text>
-          <Text variant="body_m">Sign up into your account</Text>
+          <Text variant="body_md__r">Sign up into your account</Text>
         </div>
         <div className="mt-12 flex flex-row gap-8 justify-center">
           <button className=" px-6 py-4 border-2 border-solid border-primary rounded-lg">
@@ -42,7 +41,7 @@ export default function Signin() {
           </button>
         </div>
         <Text
-          variant="body_xm"
+          variant="body_md__b"
           className="mx-auto mt-12 text-center  after:contents-[''] after:absolute relative after:w-11/12 after:-left-full   after:top-1/2 after:-translate-y-1/2 after:h-1 after:bg-[#dadada] before:contents-['']  after:contents-[''] before:absolute   before:w-11/12 before:-right-full   before:top-1/2 before:-translate-y-1/2 before:h-1 before:bg-[#dadada]  	"
         >
           Or continue with
