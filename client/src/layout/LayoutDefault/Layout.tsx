@@ -1,21 +1,20 @@
 'use client';
 import { ReactNode, useEffect } from 'react';
 
+import { authenSevice } from '@/api';
 import Header from '@/components/Header';
-import Wrapper from '@/components/Wrapper';
 import Sidebar from '@/components/Sidebar';
 import Suggestion from '@/components/Suggestion';
+import Wrapper from '@/components/Wrapper';
 import { useStore } from '@/stores/stores';
-import { authenSevice } from '@/api';
-import { NextResponse } from 'next/server';
-import { redirect, useRouter } from 'next/navigation';
-import { useUpdateEffect } from '@/hooks/useUpdateEffect';
 import { cn } from '@/utils';
+import { useRouter } from 'next/navigation';
+import { storageService } from '../../helper/index';
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { push } = useRouter();
-  const { setInfo, setAccecssToken, info, accessToken } = useStore();
-
+  const { setInfo } = useStore();
+  const accessToken = storageService.getItem('accessToken');
   useEffect(() => {
     const controller = new AbortController();
     const fetch = async () => {
@@ -23,14 +22,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         const result = await authenSevice.getUserProfile();
         setInfo(result);
       } catch (err) {
-        try {
-          const newAccessToken = await authenSevice.refreshToken();
-          setAccecssToken(newAccessToken.accessToken);
-          // const result = await authenSevice.getUserProfile();
-          // setInfo(result);
-        } catch (err) {
-          push('/login');
-        }
+        // await Promise.resolve(() => setTimeout(() => push('/login'), 500));
+        setTimeout(() => push('/login'), 500);
       }
     };
     fetch();

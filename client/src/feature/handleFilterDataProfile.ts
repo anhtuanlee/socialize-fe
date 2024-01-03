@@ -1,7 +1,7 @@
 import { userService } from '@/api';
 
 export const handleFilterDataProfile = (
-    params: TFilterPRofile
+    params: TFilterProfile
 ): {
     key: string;
     action: (path: string) => Promise<unknown>;

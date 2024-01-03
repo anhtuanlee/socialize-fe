@@ -5,16 +5,14 @@ import { FormEvent } from 'react';
 import { authenSevice } from '@/api/index';
 import { DATA_FORM_LOGIN, DATA_FORM_SIGNIN } from '@/constant/data-form';
 
-import { storageService } from '@/helper';
 import { useStore } from '@/stores/stores';
 import Button from '../Button';
 import FormDateDropdown from './FormDateDropdown';
 import FormInput from './FormInput';
-import { setCookie } from 'cookies-next';
 
 export default function Form({ type }: TForm) {
   const { push } = useRouter();
-  const { setAccecssToken, setIsLogin } = useStore();
+  const { setAccecssToken } = useStore();
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     let result;
     try {
@@ -24,13 +22,13 @@ export default function Form({ type }: TForm) {
         result = await authenSevice.logIn(formData);
         if (result) {
           setAccecssToken(result.accessToken);
-          setIsLogin(true);
           push('/');
         }
       } else {
-        console.log(formData);
-
         result = await authenSevice.signIn(formData);
+        if (result) {
+          push('/login');
+        }
       }
     } catch (err) {
       console.log(err);
@@ -44,17 +42,17 @@ export default function Form({ type }: TForm) {
       onSubmit={(e) => onSubmit(e)}
       className="flex  w-[30rem] flex-col gap-8 mt-10 "
     >
-      {dataForm.map((input) => {
+      {dataForm.map((input, index) => {
         if (Array.isArray(input)) {
           return (
-            <div className="flex flex-row gap-4">
+            <div key={index} className="flex flex-row gap-4">
               {input.map((inputChild) => {
-                return <FormInput data={inputChild} />;
+                return <FormInput key={inputChild.id} data={inputChild} />;
               })}
             </div>
           );
         } else {
-          return <FormInput data={input} />;
+          return <FormInput key={index} data={input} />;
         }
       })}
       {type === 'login' ? (
@@ -76,7 +74,11 @@ export default function Form({ type }: TForm) {
           </p>
         </>
       )}
-      <Button typeButton="submit" className="text-2xl" type="primary">
+      <Button
+        typeButton="submit"
+        classNames="!py-8 flex justify-center items-center"
+        type="primary"
+      >
         {type === 'login' ? 'Login' : 'Sign Up'}
       </Button>
     </form>

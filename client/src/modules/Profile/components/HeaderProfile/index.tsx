@@ -1,12 +1,11 @@
 import Button from '@/components/Button';
 import { IconMessage, IconMore, IconArrowLeft } from '@/components/IconSvg';
 import { cn } from '@/utils';
-import { info } from 'console';
 import React from 'react';
 import RenderButton from '../RelationButton/RenderButton';
-import Image from 'next/image';
 import Text from '@/components/Text';
 import { auth } from '@/types/data';
+import ImageCustom from '@/components/ImageCustom';
 
 type THeaderProfile = {
   data: auth.TDataUser;
@@ -18,14 +17,11 @@ const HeaderProfile: React.FC<THeaderProfile> = ({ data, self, reiceiver, relati
   return (
     <div className={cn('w-full  aspect-2/75 bg-transparent relative')}>
       <figure className={cn('absolute w-full h-full')}>
-        <Image
+        <ImageCustom
           className={cn('absolute')}
-          src={
-            // !data ? 'https://images3.alphacoders.com/132/1326290.jpeg' : data.cover
-            'https://wallpapers.com/images/high/bmw-background-qzphq8jh55vuvyns.webp'
-          }
-          alt={data?.full_name ?? 'unknow'}
-          fill
+          src={data?.cover}
+          alt={data?.full_name}
+          type="default"
         />
       </figure>
       <div className={cn('flex flex-row items-center gap-10 absolute -bottom-10 right-4')}>
@@ -39,10 +35,10 @@ const HeaderProfile: React.FC<THeaderProfile> = ({ data, self, reiceiver, relati
       </div>
       <div className={cn('flex flex-row gap-8 absolute -bottom-12 left-4')}>
         <figure className={cn('w-28 h-28 overflow-hidden rounded-full relative ')}>
-          <Image
-            src={data ? data.avatar : 'https://images3.alphacoders.com/132/1326290.jpeg'}
-            alt={data?.full_name ?? ''}
-            fill
+          <ImageCustom
+            src={data?.avatar}
+            alt={data?.full_name}
+            type="avatar"
             className={cn('absolute')}
           />
         </figure>

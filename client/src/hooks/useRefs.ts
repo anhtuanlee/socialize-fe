@@ -1,11 +1,9 @@
-import { MeshLineGeometry } from "@react-three/drei";
-import { useRef } from "react";
-import { Mesh } from "three";
+import { useRef } from 'react';
 
 export const useRefs = () => {
-  const refsByKey = useRef<Record<string, HTMLElement | Mesh | null>>({});
+  const refsByKey = useRef<Record<string, HTMLElement | null>>({});
 
-  const setRef = (element: HTMLElement | Mesh | null, key: string) => {
+  const setRef = (element: HTMLElement | null, key: string) => {
     refsByKey.current[key] = element;
   };
 

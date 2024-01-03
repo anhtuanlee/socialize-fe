@@ -1,12 +1,7 @@
-import { auth } from '@/types/data';
+import { auth, store } from '@/types/data';
 import { StateCreator } from 'zustand';
 
-export const createAuthSlice: StateCreator<
-    auth.TAuthLogin & auth.TToken,
-    [],
-    [],
-    auth.TAuthLogin & auth.TToken
-> = (set) => ({
+export const createAuthSlice: StateCreator<store.TAuth, []> = (set) => ({
     isLogin: false,
     info: undefined,
     accessToken: '',
