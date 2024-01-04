@@ -1,16 +1,12 @@
 'use client';
 
-import { cn } from '@/utils';
-import Link from 'next/link';
-import Stories from './components/Stories';
-import PostForm from '@/components/PostForm';
-import { useStore } from '@/stores/stores';
-import ListData from '@/components/ListData';
-import useSWR from 'swr';
 import { postService } from '@/api/postService';
+import ListData from '@/components/ListData';
+import PostForm from '@/components/PostForm';
+import useSWR from 'swr';
+import Stories from './components/Stories';
 
 export default function HomeModule() {
-  const { info } = useStore();
   const { data } = useSWR({ path: postService.KEY_GET }, postService.getPost, {
     revalidateIfStale: true,
     revalidateOnMount: true,
@@ -21,7 +17,7 @@ export default function HomeModule() {
       <Stories />
 
       <div className="py-4 bg-lightgray rounded-xl px-6">
-        <PostForm data={info!} classNames="w-full" />
+        <PostForm classNames="w-full" />
       </div>
       <div>{<ListData type="posts" data={data} />}</div>
       {/* <div className="flex flex-col gap-8">

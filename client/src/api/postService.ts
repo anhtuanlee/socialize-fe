@@ -32,7 +32,7 @@ class PostService {
         return result.data;
     }
     async createPost(path: string, args: post.TDataPost, config: any) {
-        const result = await httpRequest.postTest(path, args, config);
+        const result = await httpRequest.post(path, args, config);
         return result;
     }
 

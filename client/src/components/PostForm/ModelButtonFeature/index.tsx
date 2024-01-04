@@ -5,10 +5,12 @@ import { useStore } from '@/stores/stores';
 import { cn } from '@/utils';
 import React from 'react';
 
-function ModelButtonFeature({ typeContent }: { typeContent: string }): JSX.Element {
-  const { setIsSelectImg } = useStore();
+function ModelButtonFeature({ isHavesText }: { isHavesText: string }): JSX.Element {
+  const { setIsSelectImg, listSelectImg } = useStore();
+  let isDisabled = isHavesText.trim() === '' && !listSelectImg;
+
   return (
-    <div className="absolute bg-white z-2 border-t-[1px] py-12 px-8 border-solid border-colgray  w-full   bottom-0 flex flex-row justify-between items-center ">
+    <div className="absolute bg-white z-[2] border-t-[1px] py-12 px-8 border-solid border-colgray  w-full   bottom-0 flex flex-row justify-between items-center ">
       <div className={cn('flex flex-row gap-12  ')}>
         {DATA_ICON_FOMR_POST.map((item) => {
           const Icon = item.icon;
@@ -20,8 +22,8 @@ function ModelButtonFeature({ typeContent }: { typeContent: string }): JSX.Eleme
         })}
       </div>
 
-      <Button type="primary" typeButton="submit" disabled={!typeContent.trim()}>
-        <Text variant="body_sm__s" color={!typeContent.trim() ? 'ashgray' : 'white'}>
+      <Button type="primary" typeButton="submit" disabled={isDisabled}>
+        <Text variant="body_sm__s" color={isDisabled ? 'ashgray' : 'white'}>
           Post
         </Text>
       </Button>

@@ -8,16 +8,16 @@ import React, { Dispatch, SetStateAction } from 'react';
 
 type TModelUser = {
   data: auth.TDataUser;
-  classNames: string;
+  classNames?: string;
 };
 
 const ModelUser: React.FC<TModelUser> = ({ data, classNames }) => {
   return (
-    <div className={cn('flex flex-row gap-4 pl-4 pt-6', classNames)}>
-      <figure className={cn('w-14 h-14 rounded-full overflow-hidden relative')}>
+    <div className={cn('flex flex-row items-center gap-4 h-auto px-4 py-6', classNames)}>
+      <figure className={cn('w-16 h-16 flex-shrink-0 rounded-full overflow-hidden relative')}>
         <ImageCustom alt={data?.full_name} src={data?.avatar} type="avatar" />
       </figure>
-      <div className={cn('flex flex-col items-start justify-between relative')}>
+      <div className={cn('flex flex-col items-start justify-between gap-4  w-full relative')}>
         <Text variant="body_sm__b" color="darkblue">
           {data?.full_name}
         </Text>

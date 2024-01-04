@@ -1,18 +1,25 @@
 import { DATA_ICON_FOMR_POST } from '@/constant/data-post-form';
 import { cn } from '@/utils';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth } from '@/types/data';
 import ModelPost from './ModelForm';
 import ImageCustom from '../ImageCustom';
+import { useStore } from '@/stores/stores';
 
 type TPostForm = {
   classNames?: string;
-  data: auth.TDataUser;
 };
 
-const PostForm: React.FC<TPostForm> = ({ classNames, data }) => {
+const PostForm: React.FC<TPostForm> = ({ classNames }) => {
   const [isOpenModel, setIsOpenModel] = useState<boolean>(false);
-
+  const { info: data } = useStore();
+  useEffect(() => {
+    if (isOpenModel) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpenModel]);
   return (
     <section className={cn('mx-auto relative w-11/12', classNames)}>
       <div className={cn('flex flex-row  items-center justify-between gap-4 ')}>
@@ -28,7 +35,7 @@ const PostForm: React.FC<TPostForm> = ({ classNames, data }) => {
           )}
         />
       </div>
-      <ModelPost isOpenModel={isOpenModel} setIsOpenModel={setIsOpenModel} info={data} />
+      <ModelPost isOpenModel={isOpenModel} setIsOpenModel={setIsOpenModel} info={data!} />
     </section>
   );
 };

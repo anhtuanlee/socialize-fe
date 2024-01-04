@@ -1,7 +1,7 @@
 .btn {
   svg {
-    width: vh(20px);
-    height: vh(20px);
+    width: vh(16px);
+    height: vh(16px);
   }
 }
 
@@ -30,7 +30,6 @@
   padding: vh(10px) vh(16px);
   color: #150aa1;
   border-radius: vw(8px);
-  height: vw(40px);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -53,7 +52,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: rgba(124, 119, 119, 0.61) 0px 7px 29px 0px;
+  // box-shadow: rgba(124, 119, 119, 0.61) 0px 7px 29px 0px;
 
   .loading {
     &::after {

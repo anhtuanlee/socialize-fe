@@ -1,5 +1,4 @@
 .wrapper {
-  position: absolute;
   z-index: 111;
   max-width: 100%;
   width: auto;
@@ -8,8 +7,9 @@
   color: #000;
   top: rem(20px);
   &__button_select {
-    border-radius: 0.25rem;
+    padding: rem(4px) 0;
     padding-right: rem(10px);
+    border-radius: 0.25rem;
     cursor: pointer;
     display: flex;
     justify-content: space-between;

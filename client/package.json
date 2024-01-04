@@ -13,6 +13,9 @@
     "format": "npm run lint:fix && npm run lint:css"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.3",
     "@types/linkify-it": "^3.0.5",
     "@types/node": "20.10.1",
     "@types/react": "18.2.39",
@@ -27,8 +30,10 @@
     "date-fns": "^2.30.0",
     "eslint": "8.54.0",
     "eslint-config-next": "^13.5.1",
+    "infinite-react-carousel": "^1.2.11",
+    "lightbox.js-react": "^0.9.9",
     "linkify-it": "^5.0.0",
-    "next": "^14.0.4",
+    "next": "^13.5.6",
     "next-intl": "^2.20.0",
     "postcss": "8.4.31",
     "prettier": "^3.1.1",

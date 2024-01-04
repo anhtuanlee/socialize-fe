@@ -70,14 +70,14 @@ export const update = async (path: string, option?: {}, config?: AxiosRequestCon
   return result.data;
 };
 
-const httpTest = axios.create({
-  baseURL: 'http://localhost:3000/api',
-  withCredentials: false,
-  headers: {
-    'Content-Type': 'multipart/form-data',
-  },
-});
-export const postTest = async (path: string, args: any, option: any) => {
-  const result = await httpTest.post(path, args, option);
-  return result;
-};
+// const httpTest = axios.create({
+//   baseURL: 'http://localhost:3000/api',
+//   withCredentials: false,
+//   headers: {
+//     'Content-Type': 'multipart/form-data',
+//   },
+// });
+// export const postTest = async (path: string, args: any, option: any) => {
+//   const result = await httpTest.post(path, args, option);
+//   return result;
+// };

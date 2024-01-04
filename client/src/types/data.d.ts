@@ -25,15 +25,34 @@ declare namespace store {
     setIsSelectImg: (b: boolean) => void;
   };
   type TListSelectImg = {
-    listSelectImg: string[];
-    setListSelectImg: (img: string) => void;
+    listSelectImg?: FileList | null;
+    setListSelectImg: (img: FileList | null) => void;
   };
-  type TPost = TReply & TSelectImg & TMode & TListSelectImg;
+  type TContent = {
+    content?: string[];
+    setContent: (content: string[]) => void;
+  };
+  type TIsSelectCustomImg = {
+    isOpenSelectCustomImg: boolean;
+    setIsOpenSelectCustomImg: (bo: boolean) => void;
+  };
+  type TSelectListViews = {
+    listImgViews: TDataBlob[] | null;
+    setListImgViews: (list: TDataBlob[] | undefined) => void;
+  };
+  type TPost = TReply &
+    TSelectImg &
+    TMode &
+    TListSelectImg &
+    TContent &
+    TIsSelectCustomImg &
+    TSelectListViews;
+
   type TAuth = TToken & TAuthLogin;
 }
 declare global {
   type TButton = {
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent) => void;
     type: TButtonType;
     href?: string;
     classNames?: string;
@@ -93,6 +112,10 @@ declare global {
     name: string;
     icon: () => JSX.Element;
   };
+  type TDataBlob = {
+    url: string;
+    name: string;
+  };
 }
 
 declare namespace auth {
@@ -129,13 +152,12 @@ declare namespace post {
     role: string;
     user_name: string;
     avatar: string;
-    image: string;
+    img: string[];
     createAt: Date;
   };
   type TDataPost = {
     content?: string[];
-    image?: string[];
-    formImage?: FormData | undefined;
+    files_posts?: FileList | null;
     mode?: post.TMode;
   };
   type TQueryGet = {
