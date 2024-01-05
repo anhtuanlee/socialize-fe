@@ -23,7 +23,7 @@ const Button: React.FC<TButton & React.HTMLProps<HTMLButtonElement>> = ({
       className={cn(classNames, s[type], s.btn, disabled && s.disabled)}
       type={typeButton}
       {...props}
-      onClick={onClick}
+      onClick={!disabled ? onClick : undefined}
     >
       {Icons && (isLoading ? <span className={cn(s.loading)}></span> : <Icons />)}
       {type !== 'icon' && children}

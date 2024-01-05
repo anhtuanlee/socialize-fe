@@ -1,66 +1,81 @@
 import Button from '@/components/Button';
-import { IconClose } from '@/components/IconSvg';
+import { IconAddGallery, IconClose, IconEdit } from '@/components/IconSvg';
 import ImageCustom from '@/components/ImageCustom';
 import { useStore } from '@/stores/stores';
 import React from 'react';
 
 function ModelSelectImgCustom() {
-  const { listImgViews, listSelectImg, setListImgViews, setListSelectImg } = useStore();
+  const { listImgPost, removeListImgPost, setIsOpenSelectCustomImg, addListImgPost } = useStore();
 
   const handleDeleteImages = (e: React.MouseEvent, name: string) => {
     e.stopPropagation();
     e.preventDefault();
-
-    const listUpdateViews = [...(listImgViews as TDataBlob[])];
-    const listUpdateSelects: { [x: number]: File } = { ...listSelectImg };
-    const newListSelects = Object.values(listUpdateSelects!).filter((item) => item.name !== name);
-    const fortmatNewList: Record<number, File> = newListSelects.reduce(
-      (acc, currentElement, index) => {
-        acc[index + 1] = currentElement;
-        return acc;
-      },
-      {} as Record<number, File>
-    );
-    const newListViews = listUpdateViews.filter((item) => item.name !== name);
-    setListImgViews(newListViews);
-    setListSelectImg(fortmatNewList as FileList);
+    removeListImgPost(name);
+    if (listImgPost.listUrl?.length === 1) {
+      setIsOpenSelectCustomImg(false);
+    }
   };
-  console.log(listSelectImg);
 
   return (
-    <div className="h-full overflow-scroll ">
-      <div className="flex flex-col">
-        {listImgViews?.map((item) => {
-          return (
-            <div className={`aspect-2/75 w-full py-2 px-4`}>
-              <figure
-                className="relative flex items-center justify-center w-auto h-full overflow-hidden rounded-2xl"
-                key={item.name}
-              >
-                <Button
-                  Icons={IconClose}
-                  onClick={(e) => handleDeleteImages(e, item.name)}
-                  type="icon"
-                  classNames="absolute right-5 top-5 shadow-md"
-                />
-
-                <div
-                  className="absolute inset-0 -z-10 blur-md"
-                  style={{ backgroundImage: `url('${item.url}')` }}
-                ></div>
-                <ImageCustom
-                  className="absolute z-10 !w-auto mx-auto"
-                  type="default"
-                  src={item.url}
+    <>
+      <div className="h-[calc(100%-60px)] overflow-scroll ">
+        <div className="flex flex-col">
+          {listImgPost.listUrl?.map((item) => {
+            return (
+              <div className={`aspect-2/75 w-full py-2 px-4`}>
+                <figure
+                  className="relative flex items-center justify-center w-auto h-full overflow-hidden rounded-2xl"
                   key={item.name}
-                  alt={`img`}
-                />
-              </figure>
-            </div>
-          );
-        })}
+                >
+                  <Button
+                    Icons={IconClose}
+                    onClick={(e) => handleDeleteImages(e, item.name)}
+                    type="icon"
+                    classNames="absolute right-5 top-5 shadow-md z-20"
+                  />
+
+                  <div
+                    className="absolute inset-0 -z-10 blur-md"
+                    style={{ backgroundImage: `url('${item.url}')` }}
+                  ></div>
+                  <ImageCustom
+                    className="absolute z-10 !w-auto mx-auto"
+                    type="default"
+                    src={item.url}
+                    fit="contain"
+                    key={item.name}
+                    alt={`img`}
+                  />
+                </figure>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+      <div className="flex flex-row gap-4 absolute bottom-0 left-0 right-0 p-4 justify-end w-full border-t-[1px] border-solid border-ashgray">
+        <Button
+          Icons={IconAddGallery}
+          type="secondary"
+          classNames="!text-darkblack"
+          typeButton="button"
+        >
+          <label className="inset-0 cursor-pointer" htmlFor="form_post">
+            Thêm hình ảnh
+          </label>
+          <input
+            onChange={(e) => addListImgPost(e.target.files!)}
+            type="file"
+            hidden
+            id="form_post"
+            multiple
+            name={'form_post'}
+          />
+        </Button>
+        <Button onClick={() => setIsOpenSelectCustomImg(false)} type="primary" typeButton="button">
+          Xong
+        </Button>
+      </div>
+    </>
   );
 }
 

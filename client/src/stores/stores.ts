@@ -1,5 +1,4 @@
 'use client';
-import { store } from '@/types/data';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { createAuthSlice } from './slice/authSlice';

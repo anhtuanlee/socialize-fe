@@ -9,33 +9,24 @@ import React from 'react';
 function ModelSelectImg() {
   const {
     setIsSelectImg,
-    setListSelectImg,
-    listImgViews,
-    setListImgViews,
+    removeAllImgPost,
     setIsOpenSelectCustomImg,
+    addListImgPost,
+    listImgPost,
   } = useStore();
-
-  const handleOnChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const listRenderImg = await helper.convertFilestToBlob(e?.target.files as FileList);
-    setListImgViews(listRenderImg);
-    setListSelectImg(e?.target.files);
-  };
-  const handleOpenCustomSelectImg = (e: React.MouseEvent) => {
-    setIsOpenSelectCustomImg(true);
-  };
 
   return (
     <div className="relative  rounded-lg border-[1px] border-solid border-ashgray p-4 m-4 ">
       <Button
         Icons={IconClose}
-        onClick={() => setIsSelectImg(false)}
+        onClick={() => (setIsSelectImg(false), removeAllImgPost())}
         type="icon"
         classNames="absolute right-8 top-8 z-[1]"
       />
-      {!listImgViews ? (
+      {!listImgPost.listUrl ? (
         <div className="w-full relative h-80 bg-[#f7f8fa] rounded-lg">
           <input
-            onChange={(e) => handleOnChange(e)}
+            onChange={(e) => addListImgPost(e?.target?.files as FileList)}
             hidden
             id="files_posts"
             formEncType="multipart/form-data"
@@ -59,16 +50,36 @@ function ModelSelectImg() {
         </div>
       ) : (
         <div className="relative">
-          <Button
-            onClick={(e) => handleOpenCustomSelectImg(e)}
-            type="secondary"
-            classNames="absolute left-4 top-8 !text-black"
-            typeButton="button"
-            Icons={IconEdit}
-          >
-            Chỉnh sửa
-          </Button>
-          <GalleryModel className="w-full h-full" data={listImgViews} />
+          <div className="absolute left-4 top-8 flex flex-row gap-4">
+            <Button
+              onClick={() => setIsOpenSelectCustomImg(true)}
+              type="secondary"
+              classNames="!text-darkblack"
+              typeButton="button"
+              Icons={IconEdit}
+            >
+              Chỉnh sửa
+            </Button>
+            <Button
+              Icons={IconAddGallery}
+              classNames="!text-darkblack"
+              type="secondary"
+              typeButton="button"
+            >
+              <label className="inset-0 cursor-pointer" htmlFor="form_post">
+                Thêm hình ảnh
+              </label>
+              <input
+                onChange={(e) => addListImgPost(e.target.files!)}
+                type="file"
+                hidden
+                id="form_post"
+                multiple
+                name={'form_post'}
+              />
+            </Button>
+          </div>
+          <GalleryModel className="w-full h-full" data={listImgPost?.listUrl!} />
         </div>
       )}
     </div>

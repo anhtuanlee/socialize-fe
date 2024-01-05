@@ -21,7 +21,7 @@ function FormComment({ data, mode, post_id, parent_id }: TCommentForm): JSX.Elem
     e.preventDefault();
     e.stopPropagation();
     const { content, ...formData } = Object.fromEntries(new FormData(e.currentTarget).entries());
-    if (typeof content === 'string') {
+    if (content !== '') {
       const newContent =
         typeof content === 'string' ? content.split(/\n{2,}/).filter((item) => item + '\n') : [];
 
@@ -51,7 +51,7 @@ function FormComment({ data, mode, post_id, parent_id }: TCommentForm): JSX.Elem
             className="focus:outline-none bg-transparent block  py-2.5 w-full text-lg text-darkgray rounded-lg "
             placeholder={`Viết bình luận ${mode === 'PUBLIC' ? 'công khai' : '...'}`}
           />
-          <Button type="select" Icons={IconSend} typeButton="submit" />
+          <Button disabled={!valueComment} type="select" Icons={IconSend} typeButton="submit" />
         </div>
       </form>
     </div>

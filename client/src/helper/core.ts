@@ -22,7 +22,7 @@ class CoreHelper {
             return `${Math.floor(days / 365)} năm`;
         }
     }
-    async convertFilestToBlob(files: FileList): Promise<TDataBlob[] | undefined> {
+    convertFilestToBlob(files: FileList): TDataBlob[] | undefined {
         if (files?.length > 0) {
             let listFiles = Array.from(files)?.map((file) => {
                 const blob = URL.createObjectURL(file);
@@ -31,8 +31,18 @@ class CoreHelper {
                     name: file.name,
                 };
             });
-            let res = (await Promise.all(listFiles)) as TDataBlob[];
+            let res = listFiles as TDataBlob[];
             return res;
+        }
+    }
+    async convertFileToBlob(file: File): Promise<TDataBlob | undefined> {
+        if (file) {
+            const blob = URL.createObjectURL(file);
+            const data = {
+                url: blob,
+                name: file.name,
+            };
+            return data;
         }
     }
     async getBlobFromUrl(myImageUrl: any) {
@@ -71,5 +81,11 @@ class CoreHelper {
             return null;
         }
     }
+    convertContentToArray(content: FormDataEntryValue) {
+        const newContent =
+            typeof content === 'string' ? content.split(/\n{2,}/).filter((item) => item + '\n') : [];
+        return newContent;
+    }
 }
+
 export const helper = new CoreHelper();

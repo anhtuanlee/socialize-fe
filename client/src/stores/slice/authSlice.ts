@@ -1,4 +1,3 @@
-import { auth, store } from '@/types/data';
 import { StateCreator } from 'zustand';
 
 export const createAuthSlice: StateCreator<store.TAuth, []> = (set) => ({

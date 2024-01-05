@@ -70,6 +70,10 @@
 }
 
 .select {
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 }
 .border {
   padding: vh(8px) vw(16px);
@@ -142,8 +146,18 @@
     transform: rotate(360deg);
   }
 }
-.disabled {
+
+// DISABLED
+.primary.disabled,
+.secondary.primary.disabled {
   cursor: no-drop;
   backdrop-filter: rem(10px);
   background-color: $lightgray;
+}
+
+.icon.disabled,
+.select.disabled {
+  path {
+    fill: $ashgray;
+  }
 }

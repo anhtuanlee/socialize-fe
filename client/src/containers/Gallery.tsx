@@ -7,7 +7,7 @@ import Text from '@/components/Text';
 export default function PictureGrid({ ...props }) {
   const [showGallaryView, setShowGallaryView] = useState<boolean>(false);
   const [indexOver, setIndexOver] = useState<number | null>(null);
-  const images = props.images.map((item: TDataBlob) => {
+  const images = props?.images?.map((item: TDataBlob) => {
     return item.url ?? item;
   });
   const displayGallaryImage = (images: string[]) => {

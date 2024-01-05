@@ -10,9 +10,17 @@ type TImageCustom = {
   alt?: string;
   isFill?: boolean;
   type: 'avatar' | 'default';
+  fit?: 'contain' | 'cover';
 };
 
-const ImageCustom: React.FC<TImageCustom> = ({ className, src, alt, type, isFill = true }) => {
+const ImageCustom: React.FC<TImageCustom> = ({
+  className,
+  src,
+  alt,
+  type,
+  isFill = true,
+  fit = 'cover',
+}) => {
   const imgError = {
     avatar: avatar_default,
     default: img_default,
@@ -26,7 +34,7 @@ const ImageCustom: React.FC<TImageCustom> = ({ className, src, alt, type, isFill
       placeholder="blur"
       fill={isFill}
       src={src ?? imgError[type]}
-      objectFit={'contain'}
+      objectFit={fit}
       blurDataURL={
         'https://thicc-af.mywaifulist.moe/waifus/ganyu-genshin-impact/I12RIY4CzYIZtavjhONgqZ9ZxGMKfdQRo0x0BQQ0.jpg'
       }
